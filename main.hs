@@ -6,20 +6,20 @@ import Debug.Trace
 
 data State a = Mine | Unexplored | Clue a deriving(Show)
 
-type Point   = (Int, Int)
-type World   = [[State Int]]
-type ClueMap = [[Int]]
+type Point    = (Int, Int)
+type World    = [[State Int]]
+type ClueMap  = [[Int]]
 type Explored = [[State Int]]
 
 size   = 2
-width  = 10
-height = 10
+width  = 40
+height = 30
 
 main :: IO ()
 main = do
   g        <- getStdGen
   explored <- return $ makeMatrix width height Unexplored -- nothing is explored
-  world    <- return $ genGame width height 10 g
+  world    <- return $ genGame width height (width * height `div` 10) g
   runGame explored world >>= showWorld
 
 runGame :: Explored -> World -> IO Explored
